@@ -1,13 +1,15 @@
 package com.example.retrofitexample
 
+import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
 
-class CustomAdapter(val listOfCards: List<CardModel>): RecyclerView.Adapter<CustomViewHolder>(){
+class CustomAdapter(private val listOfCards: List<CardModel>, private val context: Context): RecyclerView.Adapter<CustomViewHolder>(){
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CustomViewHolder {
         val view = LayoutInflater.from(parent.context)
             .inflate(R.layout.card_item, parent, false)
@@ -23,7 +25,7 @@ class CustomAdapter(val listOfCards: List<CardModel>): RecyclerView.Adapter<Cust
     override fun onBindViewHolder(holder: CustomViewHolder, position: Int) {
         holder.nameView.text=listOfCards[position].name
         holder.descriptionView.text=listOfCards[position].description
-
+        Glide.with(context).load(listOfCards[position].imageUrl).into(holder.imageView)
     }
 
 }
@@ -40,4 +42,4 @@ class CustomViewHolder(view: View): RecyclerView.ViewHolder(view) {
     }
 }
 
-class CardModel(val image:String, val description:String, val name:String)
+class CardModel(val imageUrl:String, val description:String, val name:String)

@@ -31,11 +31,12 @@ class MainActivity : AppCompatActivity() {
 
     fun initRecyclerView(){
         val listOfCards:List<CardModel> = listOf(
-            CardModel("", "If this card is Special Summoned by the effect of an \"Adamancipator\" card: You can draw 1 card. If this card is in your GY: You can target 1 WATER Synchro Monster you control or in your GY; return it to the Extra Deck, and if you do, place this card on top of the Deck. You can only use each effect of \"Adamancipator Crystal - Dragite\" once per turn.","Adamancipator Crystal - Dragite"),
+            CardModel("https://images.ygoprodeck.com/images/cards/10286023.jpg", "If this card is Special Summoned by the effect of an \"Adamancipator\" card: You can draw 1 card. If this card is in your GY: You can target 1 WATER Synchro Monster you control or in your GY; return it to the Extra Deck, and if you do, place this card on top of the Deck. You can only use each effect of \"Adamancipator Crystal - Dragite\" once per turn.","Adamancipator Crystal - Dragite"),
             CardModel("", "If this card is Special Summoned by the effect of an \"Adamancipator\" card: You can draw 1 card. If this card is in your GY: You can target 1 WATER Synchro Monster you control or in your GY; return it to the Extra Deck, and if you do, place this card on top of the Deck. You can only use each effect of \"Adamancipator Crystal - Dragite\" once per turn.","Adamancipator Crystal - Dragite")
+
         )
         recyclerView=findViewById(R.id.recyclerView)
-        recyclerView.adapter=CustomAdapter(listOfCards)
+        recyclerView.adapter=CustomAdapter(listOfCards, this)
     }
 
 }
