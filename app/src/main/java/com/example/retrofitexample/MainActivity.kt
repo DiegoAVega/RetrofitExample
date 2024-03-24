@@ -9,6 +9,7 @@ import kotlinx.coroutines.launch
 class MainActivity : AppCompatActivity() {
 
     lateinit var recyclerView: RecyclerView
+    val listCard = mutableListOf<CardModel>()
 
     val service = RetrofitServiceFactory.makeRetrofitService()
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -20,7 +21,10 @@ class MainActivity : AppCompatActivity() {
             if (response.isSuccessful) {
                 val cardResponse = response.body()
                 if (cardResponse != null) {
-                    println("SE IMPRIME RESPONSE: ${cardResponse.data.first().cardImages.first().imageUrl}")
+                    cardResponse.data.forEach {
+                        listCard.add(CardModel(it.cardImages.first().imageUrl,it.description,it.name))
+                    }
+                    recyclerView.adapter?.notifyDataSetChanged()
                 }
             } else {
                 println("error")
@@ -29,14 +33,9 @@ class MainActivity : AppCompatActivity() {
 
     }
 
-    fun initRecyclerView(){
-        val listOfCards:List<CardModel> = listOf(
-            CardModel("https://images.ygoprodeck.com/images/cards/10286023.jpg", "If this card is Special Summoned by the effect of an \"Adamancipator\" card: You can draw 1 card. If this card is in your GY: You can target 1 WATER Synchro Monster you control or in your GY; return it to the Extra Deck, and if you do, place this card on top of the Deck. You can only use each effect of \"Adamancipator Crystal - Dragite\" once per turn.","Adamancipator Crystal - Dragite"),
-            CardModel("", "If this card is Special Summoned by the effect of an \"Adamancipator\" card: You can draw 1 card. If this card is in your GY: You can target 1 WATER Synchro Monster you control or in your GY; return it to the Extra Deck, and if you do, place this card on top of the Deck. You can only use each effect of \"Adamancipator Crystal - Dragite\" once per turn.","Adamancipator Crystal - Dragite")
-
-        )
+    fun initRecyclerView() {
         recyclerView=findViewById(R.id.recyclerView)
-        recyclerView.adapter=CustomAdapter(listOfCards, this)
+        recyclerView.adapter=CustomAdapter(listCard, this)
     }
 
 }
